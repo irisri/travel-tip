@@ -44,9 +44,7 @@ document.querySelector('.btn-my-location').addEventListener('click', () => {
 document.querySelector('.btn-submit').addEventListener('click', () => {
     var address = document.querySelector('[type=text]').value.replace(/\s/g, "+");
     console.log(address);
-    locService.getGeoLocationApi(address).then((location) => {
-        changeWindow(loction))
-    })
+    locService.getGeoLocationApi(address).then((location) => changeWindow(loction))
     //one marker        
 })
 
