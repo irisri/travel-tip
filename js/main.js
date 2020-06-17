@@ -29,3 +29,13 @@ document.querySelector('.btn').addEventListener('click', (ev) => {
     console.log('Aha!', ev.target);
     mapService.panTo(35.6895, 139.6917);
 })
+
+
+function onGo() {
+    console.log('h');
+    var address = document.querySelector('[type=text]').value;
+    console.log(address);
+    address.replace(' ', '+');
+    console.log(address);
+    // locService.getGeoLocationApi();
+}
