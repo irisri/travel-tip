@@ -11,15 +11,16 @@ locService.getLocs()
 window.onload = () => {
     mapService.initMap()
         .then(() => {
-            weatherService.getWeatherApi(32.0749831, 34.9120554) 
-            .then((data) => renderWeather(data))
-            mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
+            const urlParams = new URLSearchParams(window.location.search);
+            const lat = +urlParams.get('lat')
+            const lng = +urlParams.get('lng');
+            var loc = locService.setLocs(lat, lng)[0];
+            changeWindow(loc);
         })
         .catch(console.log('INIT MAP ERROR'));
 
     locService.getPosition()
         .then(pos => {
-
             console.log('User position is:', pos.coords);
         })
         .catch(err => {
@@ -27,47 +28,44 @@ window.onload = () => {
         })
 }
 
-document.querySelector('.btn').addEventListener('click', (ev) => {
-    console.log('Aha!', ev.target);
-    mapService.panTo(35.6895, 139.6917);
-})
-
-
 document.querySelector('.btn-my-location').addEventListener('click', () => {
     locService.getPosition()
         .then(pos => {
-            var loction = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-            changeWindow(loction)
+            var location = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+            changeWindow(location)
         })
 })
 
 document.querySelector('.btn-submit').addEventListener('click', () => {
     var address = document.querySelector('[type=text]').value.replace(/\s/g, "+");
-    console.log(address);
-    locService.getGeoLocationApi(address).then((location) => changeWindow(loction))
+    locService.getGeoLocationApi(address).then((location) => changeWindow(location))
     //one marker        
 })
 
-
+document.querySelector('.btn-copy').addEventListener('click', () => {
+    locService.getPosition()
+        .then(pos => {
+            var locationUrl = window.location.href + `?lat=${pos.coords.latitude}&lng=${pos.coords.longitude}`;
+            console.log(locationUrl);
+        })
+})
 
 function changeWindow(location) {
     mapService.panTo(location.lat, location.lng);
     mapService.addMarker(location);
-    weatherService.getWeatherApi(location.lat, location.lng)
-    .then((data) => renderWeather(data))
+    weatherService.getWeatherData(location.lat, location.lng)
+        .then((data) => renderWeather(data))
 }
-
-
-
-//lee
-// weatherService.getWeatherApi(56, 43)
-//     .then((data) => {
-//         console.log('lee', data);
-//         renderWeather(data);
-//     })
 
 function renderWeather(data) {
     var elWeather = document.querySelector('.weather');
     elWeather.querySelector('.weather-location').innerText = `${data.name}, ${data.weather[0].description}`;
-    elWeather.querySelector('.temp').innerText = `${data.main.temp} tempature, from ${data.main.temp_min} to ${data.main.temp_max}`;
+
+    var currTemp = kelvinToCel(data.main.temp);
+    var temp_min = kelvinToCel(data.main.temp_min);
+    var temp_max = kelvinToCel(data.main.temp_max);
+    elWeather.querySelector('.temp').innerText =
+        `${currTemp} tempature, from ${temp_min} to ${temp_max}`;
+    elWeather.querySelector('.wind').innerText = `${data.wind.speed} meter/sec`;
 }
+
