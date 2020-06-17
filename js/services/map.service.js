@@ -39,7 +39,7 @@ function panTo(lat, lng) {
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = ''; //TODO: Enter your API Key
+    const API_KEY = 'AIzaSyCB4Tvi6pvyUIN1HSBk5TH6X9UkqOJ6Q58'; //TODO: Enter your API Key
     var elGoogleApi = document.createElement('script');
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
     elGoogleApi.async = true;
@@ -52,4 +52,8 @@ function _connectGoogleApi() {
 }
 
 
+//AIzaSyCxcNeNliKS4DFy1Ca-ZfJVGG6KkaQy8D0
+
+//     map: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCxcNeNliKS4DFy1Ca-ZfJVGG6KkaQy8D0&callback=initMap',
+//     geoLocationApi: `https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyCxcNeNliKS4DFy1Ca-ZfJVGG6KkaQy8D0`
 
