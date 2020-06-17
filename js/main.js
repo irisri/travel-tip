@@ -2,6 +2,7 @@ console.log('Main!');
 
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
+import { weatherService } from './services/weather.service.js'
 
 
 locService.getLocs()
@@ -31,6 +32,7 @@ document.querySelector('.btn').addEventListener('click', (ev) => {
 })
 
 
+<<<<<<< HEAD
 function onGo() {
     console.log('h');
     var address = document.querySelector('[type=text]').value;
@@ -39,3 +41,19 @@ function onGo() {
     console.log(address);
     // locService.getGeoLocationApi();
 }
+=======
+//lee
+
+
+weatherService.getWeatherApi(56, 43)
+    .then((data) => {
+        console.log('lee', data);
+        renderWeather(data);
+    })
+
+function renderWeather(data) {
+    var elWeather = document.querySelector('.weather');
+    elWeather.querySelector('.weather-location').innerText = `${data.name}, ${data.weather[0].description}`;
+    elWeather.querySelector('.temp').innerText = `${data.main.temp} tempature, from ${data.main.temp_min} to ${data.main.temp_max}`;
+}
+>>>>>>> 31914688588f532f906c141f51f4ef424f0c2dba
