@@ -5,22 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ES6</title>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-    <h1>ES6</h1>
+    <h1 class="logo">TravelTip</h1>
     <div>
-        <button onclick="onEnterLocation()"></button>
-        <button onclick="onGo()"></button>
-        <button onclick="onMyLocation()"></button>
+        <button onclick="onEnterLocation()">Enter Location</button>
+        <button onclick="onGo()">Go</button>
+        <button onclick="onMyLocation()">My Location</button>
     </div>
     <div class="location">
-        <div class="detail">Location <span></span></div>
-        <button onclick="onCopyLocation()"></button>
+        <div class="detail">Location<span></span></div>
+        <button onclick="onCopyLocation()">Copy Location</button>
     </div>
-    <div class="apis">
+    <div class="api-container">
 
-        <div id="weather" style="width: 100%; height: 400px;"></div>
+        <div class="weather" id="weather" style="width: 100%; height: 400px;"></div>
         <div id="map" style="width: 100%; height: 400px;"></div>
     </div>
 
