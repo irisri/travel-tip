@@ -27,7 +27,7 @@ function addMarker(loc) {
     var marker = new google.maps.Marker({
         position: loc,
         map: map,
-        title: 'Hello World!'
+        title: 'My location'
     });
     return marker;
 }

@@ -21,17 +21,10 @@ function getPosition() {
     })
 }
 
-function getGeoLocationApi() {
-    var address = document.querySelector('[type=text]').value;
-    console.log(address);
-    address.replace(' ', '+');
-    console.log(address);
-    // const API_KEY = 'AIzaSyCB4Tvi6pvyUIN1HSBk5TH6X9UkqOJ6Q58'; //TODO: Enter your API Key
-    // var api = `https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${API_KEY}`;
-
-
-    // return new Promise((resolve, reject) => {
-    //     elGoogleApi.onload = resolve;
-    //     elGoogleApi.onerror = () => reject('Google geolocation failed to load')
-    // })
+function getGeoLocationApi(address) {
+    
+    const API_KEY = 'AIzaSyCB4Tvi6pvyUIN1HSBk5TH6X9UkqOJ6Q58'; //TODO: Enter your API Key
+    var api = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}+CA&key=${API_KEY}`;
+    return axios.get(api)
+        .then(res => res.data.results[0].geometry.location)
 }

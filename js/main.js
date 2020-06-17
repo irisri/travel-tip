@@ -11,7 +11,8 @@ locService.getLocs()
 window.onload = () => {
     mapService.initMap()
         .then(() => {
-
+            weatherService.getWeatherApi(32.0749831, 34.9120554) 
+            .then((data) => renderWeather(data))
             mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
         })
         .catch(console.log('INIT MAP ERROR'));
@@ -32,28 +33,43 @@ document.querySelector('.btn').addEventListener('click', (ev) => {
 })
 
 
-<<<<<<< HEAD
-function onGo() {
-    console.log('h');
-    var address = document.querySelector('[type=text]').value;
-    console.log(address);
-    address.replace(' ', '+');
-    console.log(address);
-    // locService.getGeoLocationApi();
-}
-=======
-//lee
+document.querySelector('.btn-my-location').addEventListener('click', () => {
+    locService.getPosition()
+        .then(pos => {
+            var loction = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+            changeWindow(loction)
+        })
+})
 
-
-weatherService.getWeatherApi(56, 43)
-    .then((data) => {
-        console.log('lee', data);
-        renderWeather(data);
+document.querySelector('.btn-submit').addEventListener('click', () => {
+    var address = document.querySelector('[type=text]').value.replace(/\s/g, "+");
+    console.log(address);
+    locService.getGeoLocationApi(address).then((location) => {
+        changeWindow(loction))
     })
+    //one marker        
+})
+
+
+
+function changeWindow(location) {
+    mapService.panTo(location.lat, location.lng);
+    mapService.addMarker(location);
+    weatherService.getWeatherApi(location.lat, location.lng)
+    .then((data) => renderWeather(data))
+}
+
+
+
+//lee
+// weatherService.getWeatherApi(56, 43)
+//     .then((data) => {
+//         console.log('lee', data);
+//         renderWeather(data);
+//     })
 
 function renderWeather(data) {
     var elWeather = document.querySelector('.weather');
     elWeather.querySelector('.weather-location').innerText = `${data.name}, ${data.weather[0].description}`;
     elWeather.querySelector('.temp').innerText = `${data.main.temp} tempature, from ${data.main.temp_min} to ${data.main.temp_max}`;
 }
->>>>>>> 31914688588f532f906c141f51f4ef424f0c2dba
